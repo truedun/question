@@ -5,141 +5,148 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
     <title>quick question</title>
+<style>
+    * {
+        box-sizing: border-box;
+    }
 
-    <style>
-        * {
-            box-sizing: border-box;
+    body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #111110;
+        font-family: Arial, sans-serif;
+        color: #e8e7e3;
+        padding: 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 440px;
+        background: #191918;
+        border: 1px solid #292927;
+        border-radius: 18px;
+        padding: 30px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        animation: appear 0.7s ease;
+    }
+
+    @keyframes appear {
+        from {
+            opacity: 0;
+            transform: translateY(8px);
         }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #000;
-            font-family: Arial, sans-serif;
-            color: #fff;
-            padding: 20px;
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
+    }
 
+    .top {
+        font-size: 11px;
+        color: #777772;
+        margin-bottom: 30px;
+        letter-spacing: 1.5px;
+    }
+
+    h1 {
+        font-size: 23px;
+        font-weight: 500;
+        margin-top: 0;
+        margin-bottom: 12px;
+        line-height: 1.45;
+        color: #eeede8;
+        letter-spacing: -0.3px;
+    }
+
+    p {
+        color: #aaa9a2;
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 26px;
+    }
+
+    button {
+        font-family: inherit;
+        font-size: 13px;
+        padding: 12px 17px;
+        border-radius: 9px;
+        border: 1px solid #383834;
+        background: #222220;
+        color: #d8d7d1;
+        cursor: pointer;
+        transition: background 0.25s ease,
+                    border-color 0.25s ease,
+                    color 0.25s ease,
+                    transform 0.25s ease;
+    }
+
+    button:hover {
+        background: #2b2b28;
+        border-color: #50504a;
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+    button:active {
+        transform: scale(0.98);
+    }
+
+    button:focus-visible {
+        outline: 1px solid #aaa99f;
+        outline-offset: 3px;
+    }
+
+    .primary {
+        background: #deddd5;
+        color: #171715;
+        border-color: #deddd5;
+    }
+
+    .primary:hover {
+        background: #f0efe8;
+        border-color: #f0efe8;
+        color: #111;
+    }
+
+    .progress {
+        margin-top: 30px;
+        padding-top: 17px;
+        border-top: 1px solid #2a2a27;
+        font-size: 11px;
+        color: #72726c;
+        letter-spacing: 0.2px;
+    }
+
+    [hidden] {
+        display: none !important;
+    }
+
+    @media (max-width: 480px) {
         .container {
-            width: 100%;
-            max-width: 440px;
-            background: #0a0a0a;
-            border: 1px solid #292929;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            animation: appear 0.5s ease;
-        }
-
-        @keyframes appear {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .top {
-            font-size: 12px;
-            color: #777;
-            margin-bottom: 28px;
-            letter-spacing: 1px;
+            padding: 25px;
         }
 
         h1 {
-            font-size: 23px;
-            font-weight: 600;
-            margin-top: 0;
-            margin-bottom: 12px;
-            line-height: 1.4;
-            color: #fff;
+            font-size: 21px;
         }
+    }
 
-        p {
-            color: #bdbdbd;
-            font-size: 14px;
-            line-height: 1.7;
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
         }
-
-        .buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 25px;
-        }
-
-        button {
-            font-family: inherit;
-            font-size: 14px;
-            padding: 11px 16px;
-            border-radius: 7px;
-            border: 1px solid #404040;
-            background: #151515;
-            color: #fff;
-            cursor: pointer;
-            transition: background 0.2s ease, border-color 0.2s ease;
-        }
-
-        button:hover {
-            background: #292929;
-            border-color: #777;
-        }
-
-        button:active {
-            background: #333;
-        }
-
-        button:focus-visible {
-            outline: 2px solid #fff;
-            outline-offset: 3px;
-        }
-
-        .primary {
-            background: #fff;
-            color: #000;
-            border-color: #fff;
-        }
-
-        .primary:hover {
-            background: #d9d9d9;
-            border-color: #d9d9d9;
-        }
-
-        .progress {
-            margin-top: 28px;
-            padding-top: 16px;
-            border-top: 1px solid #292929;
-            font-size: 11px;
-            color: #777;
-        }
-
-        [hidden] {
-            display: none !important;
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 24px;
-            }
-
-            h1 {
-                font-size: 21px;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 
 <body>
