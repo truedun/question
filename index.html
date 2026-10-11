@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quick question</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f4f4f4;
+            font-family: Arial, sans-serif;
+            color: #222;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 9px;
+            padding: 30px;
+            box-shadow: 0 3px 12px #00000008;
+        }
+
+        .top {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 28px;
+        }
+
+        h1 {
+            font-size: 23px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        button {
+            font-size: 14px;
+            padding: 11px 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background: white;
+            color: #222;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #f0f0f0;
+        }
+
+        .primary {
+            background: #222;
+            color: white;
+            border-color: #222;
+        }
+
+        .primary:hover {
+            background: #444;
+        }
+
+        .progress {
+            margin-top: 25px;
+            font-size: 11px;
+            color: #aaa;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <div class="top">quick question.html</div>
+
+        <section id="intro">
+            <h1>hey, quick question</h1>
+            <p>nothing complicated. just need you to do something for me.</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step1')">
+                    what is it?
+                </button>
+            </div>
+        </section>
+
+        <section id="step1" hidden>
+            <h1>before that...</h1>
+            <p>can you promise to answer one question honestly?</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step2')">yeah sure</button>
+                <button onclick="next('escape1')">depends</button>
+            </div>
+        </section>
+
+        <section id="escape1" hidden>
+            <h1>depends on what 💀</h1>
+            <p>you don't even know the question yet.</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step2')">fine, continue</button>
+            </div>
+        </section>
+
+        <section id="step2" hidden>
+            <h1>okay, good</h1>
+            <p>are you sure you're ready?</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step3')">yes</button>
+                <button onclick="next('step2b')">ready for what?</button>
+            </div>
+        </section>
+
+        <section id="step2b" hidden>
+            <h1>that's classified information</h1>
+            <p>please proceed to the next stage.</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step3')">alright then</button>
+            </div>
+        </section>
+
+        <section id="step3" hidden>
+            <h1>are you REALLY sure?</h1>
+            <p>like actually sure. not just clicking buttons for fun.</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step4')">yes, continue</button>
+                <button onclick="next('step3b')">this is suspicious</button>
+            </div>
+        </section>
+
+        <section id="step3b" hidden>
+            <h1>what's suspicious about it</h1>
+            <p>i am literally just a website. probably.</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step4')">carry on</button>
+            </div>
+        </section>
+
+        <section id="step4" hidden>
+            <h1>confirmation 1/8</h1>
+            <p>do you solemnly swear to keep pressing the button?</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step5')">i solemnly swear</button>
+                <button onclick="next('step4b')">i need a lawyer</button>
+            </div>
+        </section>
+
+        <section id="step4b" hidden>
+            <h1>legal team unavailable</h1>
+            <p>they're on lunch break. please try again.</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step5')">continue without a lawyer</button>
+            </div>
+        </section>
+
+        <section id="step5" hidden>
+            <h1>confirmation 2/8</h1>
+            <p>u sure u sure?</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step6')">yes</button>
+                <button onclick="next('step5b')">u sure?</button>
+            </div>
+        </section>
+
+        <section id="step5b" hidden>
+            <h1>now you're asking me?</h1>
+            <p>i'm the one asking the questions here.</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step6')">okay bro</button>
+            </div>
+        </section>
+
+        <section id="step6" hidden>
+            <h1>confirmation 3/8</h1>
+            <p>you could literally leave right now. yet here you are.</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step7')">i'm invested now</button>
+                <button onclick="next('step6b')">how much longer</button>
+            </div>
+        </section>
+
+        <section id="step6b" hidden>
+            <h1>good question</h1>
+            <p>i'm not telling you.</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step7')">i hate it here</button>
+            </div>
+        </section>
+
+        <section id="step7" hidden>
+            <h1>confirmation 4/8</h1>
+            <p>like 100% sure? no doubts? no second thoughts?</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step8')">100% sure</button>
+                <button onclick="next('step7b')">maybe 99%</button>
+            </div>
+        </section>
+
+        <section id="step7b" hidden>
+            <h1>99% IS NOT 100%</h1>
+            <p>please consult your remaining 1% and return.</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step8')">consultation complete</button>
+            </div>
+        </section>
+
+        <section id="step8" hidden>
+            <h1>confirmation 5/8</h1>
+            <p>you've come this far. surely you're not giving up now?</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step9')">keep going</button>
+                <button onclick="next('step8b')">i might be</button>
+            </div>
+        </section>
+
+        <section id="step8b" hidden>
+            <h1>that's crazy</h1>
+            <p>after all we've been through together.</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step9')">fine 😭</button>
+            </div>
+        </section>
+
+        <section id="step9" hidden>
+            <h1>confirmation 6/8</h1>
+            <p>are you absolutely, positively, undeniably sure?</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step10')">absolutely</button>
+                <button onclick="next('step9b')">use normal words</button>
+            </div>
+        </section>
+
+        <section id="step9b" hidden>
+            <h1>are you sure?</h1>
+            <p>there. happy now?</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step10')">yes mate</button>
+            </div>
+        </section>
+
+        <section id="step10" hidden>
+            <h1>confirmation 7/8</h1>
+            <p>bro i've asked you approximately 500 times at this point</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step11')">and i'll answer 500 times</button>
+                <button onclick="next('step10b')">you're actually annoying</button>
+            </div>
+        </section>
+
+        <section id="step10b" hidden>
+            <h1>noted</h1>
+            <p>your feedback has been ignored successfully.</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step11')">continue</button>
+            </div>
+        </section>
+
+        <section id="step11" hidden>
+            <h1>FINAL CONFIRMATION</h1>
+            <p>this is the last one. probably. are you really, really, REALLY sure you want to see the question?</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step12')">yes, show me</button>
+                <button onclick="next('step11b')">i don't trust you</button>
+            </div>
+        </section>
+
+        <section id="step11b" hidden>
+            <h1>fair enough</h1>
+            <p>i wouldn't trust me either.</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step12')">reveal the question</button>
+            </div>
+        </section>
+
+        <section id="step12" hidden>
+            <h1>wait.</h1>
+            <p>before the question appears, take a moment to reflect on every decision that brought you here.</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('step13')">i have reflected</button>
+            </div>
+        </section>
+
+        <section id="step13" hidden>
+            <h1>one last thing</h1>
+            <p>there's no pressure to say yes, by the way. i just wanted to ask you properly.</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('final')">okay, what's the question?</button>
+            </div>
+        </section>
+
+        <section id="final" hidden>
+            <h1>so...</h1>
+            <p>would you want to go on a date with me sometime?</p>
+            <div class="buttons">
+                <button class="primary" onclick="next('yes')">yeah, i'd like that</button>
+                <button onclick="next('no')">no, sorry</button>
+            </div>
+        </section>
+
+        <section id="yes" hidden>
+            <h1>WAIT ACTUALLY?</h1>
+            <p>okay nice 😭 i'll try to act normal about this.</p>
+            <p>we should figure out what to do sometime :)</p>
+        </section>
+
+        <section id="no" hidden>
+            <h1>all good :)</h1>
+            <p>thanks for being honest. no pressure, genuinely.</p>
+        </section>
+
+        <div class="progress" id="progress">a very normal website</div>
+    </main>
+
+    <script>
+        function next(id) {
+            document.querySelectorAll("section").forEach(section => {
+                section.hidden = true;
+            });
+
+            document.getElementById(id).hidden = false;
+
+            const progress = document.getElementById("progress");
+
+            if (id === "final") {
+                progress.textContent = "you made it. good luck.";
+            } else if (id === "yes" || id === "no") {
+                progress.textContent = "end of questionnaire";
+            } else {
+                progress.textContent = "nothing weird going on here. probably.";
+            }
+        }
+    </script>
+</body>
+</html>
