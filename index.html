@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -364,6 +363,14 @@ document.addEventListener("keydown",e=>{
         else if(!document.getElementById("tttOverlay").hidden)closeTTT();
         else if(!document.getElementById("pongOverlay").hidden)closePong();
     }
+});
+document.addEventListener("keydown", e => {
+  if (
+    e.code === "Space" &&
+    !document.getElementById("brickOverlay").hidden
+  ) {
+    e.preventDefault();
+  }
 });
 
 document.addEventListener("keyup",e=>{delete keys[e.key.toLowerCase()]});
