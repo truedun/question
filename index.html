@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#09090f">
     <title>quick question</title>
 
     <style>
@@ -17,38 +17,58 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #f4f4f4;
+            background:
+                radial-gradient(ellipse at top, #19132b 0%, transparent 55%),
+                #09090f;
             font-family: Arial, sans-serif;
-            color: #222;
+            color: #f4f0ff;
             padding: 20px;
         }
 
         .container {
             width: 100%;
             max-width: 440px;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 9px;
+            background: rgba(19, 18, 30, 0.94);
+            border: 1px solid #302743;
+            border-radius: 16px;
             padding: 30px;
-            box-shadow: 0 3px 12px #00000008;
+            box-shadow:
+                0 0 50px rgba(139, 92, 246, 0.08),
+                0 20px 60px rgba(0, 0, 0, 0.35);
+            animation: appear 0.6s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .top {
             font-size: 12px;
-            color: #888;
+            color: #8e83a8;
             margin-bottom: 28px;
+            letter-spacing: 1px;
         }
 
         h1 {
             font-size: 23px;
             font-weight: 600;
+            margin-top: 0;
             margin-bottom: 12px;
+            line-height: 1.4;
+            color: #f5f0ff;
         }
 
         p {
-            color: #666;
+            color: #aaa2bd;
             font-size: 14px;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .buttons {
@@ -59,37 +79,76 @@
         }
 
         button {
+            font-family: inherit;
             font-size: 14px;
             padding: 11px 16px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            background: white;
-            color: #222;
+            border-radius: 8px;
+            border: 1px solid #393149;
+            background: #1b1927;
+            color: #e6dff5;
             cursor: pointer;
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
         }
 
         button:hover {
-            background: #f0f0f0;
+            background: #292337;
+            border-color: #7652ad;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:focus-visible {
+            outline: 2px solid #c4a5ff;
+            outline-offset: 3px;
         }
 
         .primary {
-            background: #222;
+            background: #8b5cf6;
             color: white;
-            border-color: #222;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 18px rgba(139, 92, 246, 0.12);
         }
 
         .primary:hover {
-            background: #444;
+            background: #7c3aed;
+            border-color: #a78bfa;
+            box-shadow: 0 0 22px rgba(139, 92, 246, 0.25);
         }
 
         .progress {
-            margin-top: 25px;
+            margin-top: 28px;
+            padding-top: 16px;
+            border-top: 1px solid #292336;
             font-size: 11px;
-            color: #aaa;
+            color: #716780;
         }
 
         [hidden] {
             display: none !important;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 21px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
@@ -332,54 +391,53 @@
         <div class="progress" id="progress">a very normal website</div>
     </main>
 
-   
-<script>
-    const SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbyhBrpRZ5hrShzUYKGPLSmo9aX1OVzqRZuSJV29ExSZCDsWDdReslIeAKLdliIBVdFs/exec";
+    <script>
+        const SCRIPT_URL =
+            "https://script.google.com/macros/s/AKfycbyhBrpRZ5hrShzUYKGPLSmo9aX1OVzqRZuSJV29ExSZCDsWDdReslIeAKLdliIBVdFs/exec";
 
-    function submitAnswer(answer) {
-        const data = new URLSearchParams();
-        data.append("answer", answer);
+        function submitAnswer(answer) {
+            const data = new URLSearchParams();
+            data.append("answer", answer);
 
-        fetch(SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            body: data
-        }).catch(error => {
-            console.error("Submission error:", error);
-        });
-    }
-
-    function next(id) {
-        if (id === "yes" || id === "no") {
-            submitAnswer(
-                id === "yes"
-                    ? "yeah, i'd like that"
-                    : "no, sorry"
-            );
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                body: data
+            }).catch(error => {
+                console.error("Submission error:", error);
+            });
         }
 
-        document.querySelectorAll("section").forEach(section => {
-            section.hidden = true;
-        });
+        function next(id) {
+            if (id === "yes" || id === "no") {
+                submitAnswer(
+                    id === "yes"
+                        ? "yeah, i'd like that"
+                        : "no, sorry"
+                );
+            }
 
-        const target = document.getElementById(id);
+            document.querySelectorAll("section").forEach(section => {
+                section.hidden = true;
+            });
 
-        if (target) {
-            target.hidden = false;
+            const target = document.getElementById(id);
+
+            if (target) {
+                target.hidden = false;
+            }
+
+            const progress = document.getElementById("progress");
+
+            if (id === "final") {
+                progress.textContent = "you made it. good luck.";
+            } else if (id === "yes" || id === "no") {
+                progress.textContent = "end of questionnaire";
+            } else {
+                progress.textContent =
+                    "nothing weird going on here. probably.";
+            }
         }
-
-        const progress = document.getElementById("progress");
-
-        if (id === "final") {
-            progress.textContent = "you made it. good luck.";
-        } else if (id === "yes" || id === "no") {
-            progress.textContent = "end of questionnaire";
-        } else {
-            progress.textContent =
-                "nothing weird going on here. probably.";
-        }
-    }
-</script>
+    </script>
 </body>
 </html>
