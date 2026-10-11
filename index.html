@@ -16,27 +16,46 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #111110;
+        background:
+            radial-gradient(ellipse at 20% 10%, #ffe1ef 0%, transparent 40%),
+            radial-gradient(ellipse at 85% 90%, #f5c8e0 0%, transparent 45%),
+            #fff5fa;
         font-family: Arial, sans-serif;
-        color: #e8e7e3;
+        color: #63384e;
         padding: 20px;
+        overflow-x: hidden;
     }
 
     .container {
+        position: relative;
         width: 100%;
         max-width: 440px;
-        background: #191918;
-        border: 1px solid #292927;
-        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid #f5c5dc;
+        border-radius: 24px;
         padding: 30px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        box-shadow:
+            0 10px 40px rgba(211, 112, 159, 0.12),
+            0 0 30px rgba(255, 215, 235, 0.4);
+        backdrop-filter: blur(12px);
         animation: appear 0.7s ease;
+    }
+
+    .container::before {
+        content: "✧  ˚  .  ✧";
+        position: absolute;
+        top: 14px;
+        right: 20px;
+        color: #e9a3c5;
+        font-size: 13px;
+        letter-spacing: 3px;
+        pointer-events: none;
     }
 
     @keyframes appear {
         from {
             opacity: 0;
-            transform: translateY(8px);
+            transform: translateY(12px);
         }
         to {
             opacity: 1;
@@ -46,23 +65,24 @@
 
     .top {
         font-size: 11px;
-        color: #777772;
+        color: #c17a9c;
         margin-bottom: 30px;
-        letter-spacing: 1.5px;
+        letter-spacing: 2px;
+        text-transform: lowercase;
     }
 
     h1 {
-        font-size: 23px;
-        font-weight: 500;
+        font-size: 24px;
+        font-weight: 600;
         margin-top: 0;
         margin-bottom: 12px;
         line-height: 1.45;
-        color: #eeede8;
+        color: #9d5277;
         letter-spacing: -0.3px;
     }
 
     p {
-        color: #aaa9a2;
+        color: #986d82;
         font-size: 14px;
         line-height: 1.8;
     }
@@ -78,22 +98,23 @@
         font-family: inherit;
         font-size: 13px;
         padding: 12px 17px;
-        border-radius: 9px;
-        border: 1px solid #383834;
-        background: #222220;
-        color: #d8d7d1;
+        border-radius: 12px;
+        border: 1px solid #f0c0d7;
+        background: #fff4f9;
+        color: #a15379;
         cursor: pointer;
-        transition: background 0.25s ease,
-                    border-color 0.25s ease,
-                    color 0.25s ease,
-                    transform 0.25s ease;
+        transition:
+            background 0.25s ease,
+            border-color 0.25s ease,
+            transform 0.25s ease,
+            box-shadow 0.25s ease;
     }
 
     button:hover {
-        background: #2b2b28;
-        border-color: #50504a;
-        color: #fff;
-        transform: translateY(-1px);
+        background: #ffe5f1;
+        border-color: #e8a0c3;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 14px rgba(213, 120, 165, 0.15);
     }
 
     button:active {
@@ -101,29 +122,29 @@
     }
 
     button:focus-visible {
-        outline: 1px solid #aaa99f;
+        outline: 2px solid #d77ca7;
         outline-offset: 3px;
     }
 
     .primary {
-        background: #deddd5;
-        color: #171715;
-        border-color: #deddd5;
+        background: linear-gradient(135deg, #f5b8d3, #e99fc3);
+        color: #713c56;
+        border-color: #eaa4c5;
+        box-shadow: 0 4px 12px rgba(220, 130, 171, 0.15);
     }
 
     .primary:hover {
-        background: #f0efe8;
-        border-color: #f0efe8;
-        color: #111;
+        background: linear-gradient(135deg, #f8c8de, #f0afd0);
+        border-color: #df8eb6;
     }
 
     .progress {
         margin-top: 30px;
         padding-top: 17px;
-        border-top: 1px solid #2a2a27;
+        border-top: 1px solid #f4d6e5;
         font-size: 11px;
-        color: #72726c;
-        letter-spacing: 0.2px;
+        color: #c18ba5;
+        letter-spacing: 0.4px;
     }
 
     [hidden] {
@@ -136,7 +157,7 @@
         }
 
         h1 {
-            font-size: 21px;
+            font-size: 22px;
         }
     }
 
