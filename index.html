@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,9 +101,7 @@
             <h1>hey, quick question</h1>
             <p>nothing complicated. just need you to do something for me.</p>
             <div class="buttons">
-                <button class="primary" onclick="next('step1')">
-                    what is it?
-                </button>
+                <button class="primary" onclick="next('step1')">what is it?</button>
             </div>
         </section>
 
@@ -322,8 +319,8 @@
 
         <section id="yes" hidden>
             <h1>WAIT ACTUALLY?</h1>
-            <p>okay nice 😭 i'll try to act normal about this.</p>
-            <p>we should figure out what to do sometime :)</p>
+            <p>okay nice 😭</p>
+            <p>we should figure out what to do sometime</p>
         </section>
 
         <section id="no" hidden>
@@ -335,12 +332,46 @@
     </main>
 
     <script>
+        const FORM_URL =
+            "https://docs.google.com/forms/d/e/1FAIpQLScL1Ka4TRm2_6isZcZLmf8ayQ7lWYvxUBUkawSuKv0Q2-iNbg/formResponse";
+
+        function submitAnswer(answer) {
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = FORM_URL;
+            form.target = "googleFormFrame";
+            form.style.display = "none";
+
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "entry.667041247";
+            input.value = answer;
+
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+
+            setTimeout(() => form.remove(), 1000);
+        }
+
         function next(id) {
+            if (id === "yes" || id === "no") {
+                submitAnswer(
+                    id === "yes"
+                        ? "yeah, i'd like that"
+                        : "no, sorry"
+                );
+            }
+
             document.querySelectorAll("section").forEach(section => {
                 section.hidden = true;
             });
 
-            document.getElementById(id).hidden = false;
+            const target = document.getElementById(id);
+
+            if (target) {
+                target.hidden = false;
+            }
 
             const progress = document.getElementById("progress");
 
@@ -349,9 +380,15 @@
             } else if (id === "yes" || id === "no") {
                 progress.textContent = "end of questionnaire";
             } else {
-                progress.textContent = "nothing weird going on here. probably.";
+                progress.textContent =
+                    "nothing weird going on here. probably.";
             }
         }
+
+        const frame = document.createElement("iframe");
+        frame.name = "googleFormFrame";
+        frame.style.display = "none";
+        document.body.appendChild(frame);
     </script>
 </body>
 </html>
