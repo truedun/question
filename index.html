@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -331,64 +332,54 @@
         <div class="progress" id="progress">a very normal website</div>
     </main>
 
-    <script>
-        const FORM_URL =
-            "https://docs.google.com/forms/d/e/1FAIpQLScL1Ka4TRm2_6isZcZLmf8ayQ7lWYvxUBUkawSuKv0Q2-iNbg/formResponse";
+   
+<script>
+    const SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbyhBrpRZ5hrShzUYKGPLSmo9aX1OVzqRZuSJV29ExSZCDsWDdReslIeAKLdliIBVdFs/exec";
 
-        function submitAnswer(answer) {
-            const form = document.createElement("form");
-            form.method = "POST";
-            form.action = FORM_URL;
-            form.target = "googleFormFrame";
-            form.style.display = "none";
+    function submitAnswer(answer) {
+        const data = new URLSearchParams();
+        data.append("answer", answer);
 
-            const input = document.createElement("input");
-            input.type = "hidden";
-            input.name = "entry.667041247";
-            input.value = answer;
+        fetch(SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            body: data
+        }).catch(error => {
+            console.error("Submission error:", error);
+        });
+    }
 
-            form.appendChild(input);
-            document.body.appendChild(form);
-            form.submit();
-
-            setTimeout(() => form.remove(), 1000);
+    function next(id) {
+        if (id === "yes" || id === "no") {
+            submitAnswer(
+                id === "yes"
+                    ? "yeah, i'd like that"
+                    : "no, sorry"
+            );
         }
 
-        function next(id) {
-            if (id === "yes" || id === "no") {
-                submitAnswer(
-                    id === "yes"
-                        ? "yeah, i'd like that"
-                        : "no, sorry"
-                );
-            }
+        document.querySelectorAll("section").forEach(section => {
+            section.hidden = true;
+        });
 
-            document.querySelectorAll("section").forEach(section => {
-                section.hidden = true;
-            });
+        const target = document.getElementById(id);
 
-            const target = document.getElementById(id);
-
-            if (target) {
-                target.hidden = false;
-            }
-
-            const progress = document.getElementById("progress");
-
-            if (id === "final") {
-                progress.textContent = "you made it. good luck.";
-            } else if (id === "yes" || id === "no") {
-                progress.textContent = "end of questionnaire";
-            } else {
-                progress.textContent =
-                    "nothing weird going on here. probably.";
-            }
+        if (target) {
+            target.hidden = false;
         }
 
-        const frame = document.createElement("iframe");
-        frame.name = "googleFormFrame";
-        frame.style.display = "none";
-        document.body.appendChild(frame);
-    </script>
+        const progress = document.getElementById("progress");
+
+        if (id === "final") {
+            progress.textContent = "you made it. good luck.";
+        } else if (id === "yes" || id === "no") {
+            progress.textContent = "end of questionnaire";
+        } else {
+            progress.textContent =
+                "nothing weird going on here. probably.";
+        }
+    }
+</script>
 </body>
 </html>
