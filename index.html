@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#000000">
 <title>quick question</title>
-
 <style>
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 20% 10%,#ffe1ef 0%,transparent 40%),radial-gradient(ellipse at 85% 90%,#f5c8e0 0%,transparent 45%),#fff5fa;font-family:Arial,sans-serif;color:#63384e;padding:20px;overflow-x:hidden}
@@ -23,31 +22,33 @@ button:focus-visible{outline:2px solid #d77ca7;outline-offset:3px}
 .primary{background:linear-gradient(135deg,#f5b8d3,#e99fc3);color:#713c56}
 .progress{margin-top:30px;padding-top:17px;border-top:1px solid #f4d6e5;font-size:11px;color:#c18ba5}
 [hidden]{display:none!important}
-
 #pongDot{position:fixed;right:8px;bottom:8px;width:7px;height:7px;min-width:0;padding:0;border:0;border-radius:50%;background:#000;opacity:.8;z-index:9999}
-#pongOverlay{position:fixed;inset:0;z-index:9998;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(30,10,22,.8);backdrop-filter:blur(8px)}
+#pongOverlay,#tttOverlay,#brickOverlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(30,10,22,.85);backdrop-filter:blur(8px)}
+#pongOverlay{z-index:9998}
+#tttOverlay{z-index:10000}
+#brickOverlay{z-index:10001}
 .pong-box{position:relative;width:100%;max-width:650px;padding:20px;border:1px solid #f0c0d7;border-radius:20px;background:#fff8fc;text-align:center;box-shadow:0 15px 60px #0005}
-.pong-box h2{color:#9d5277}
+.pong-box h2,.ttt-box h2,.brick-box h2{color:#9d5277}
 #pongCanvas{display:block;width:100%;height:auto;aspect-ratio:5/3;background:#100b12;border:1px solid #e9a3c5;border-radius:10px;touch-action:none}
 .pong-score{display:flex;justify-content:space-around;color:#9d5277}
 .pong-controls{display:flex;justify-content:center;flex-wrap:wrap;gap:8px}
 #pongStatus{min-height:20px;font-size:12px;color:#9d5277}
-
-/* TIC-TAC-TOE */
-#tttOverlay{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(30,10,22,.85);backdrop-filter:blur(8px)}
 .ttt-box{width:100%;max-width:380px;background:#fff8fc;border:1px solid #f0c0d7;border-radius:20px;padding:22px;text-align:center;color:#63384e;box-shadow:0 15px 60px #0005}
-.ttt-box h2{color:#9d5277;margin-top:0}
+.ttt-box h2{margin-top:0}
 #tttBoard{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;max-width:300px;margin:18px auto}
 #tttBoard button{aspect-ratio:1;min-width:0;padding:0;font-size:clamp(25px,8vw,42px);border:1px solid #f0c0d7;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center}
 #tttBoard button:disabled{cursor:default;opacity:1}
 #tttStatus{min-height:40px}
-.ttt-controls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
-
-@media(max-width:480px){.container{padding:25px}h1{font-size:22px}.pong-box{padding:12px}.ttt-box{padding:18px}}
+.ttt-controls,.brick-controls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+#brickDot{display:block;width:7px;height:7px;min-width:0;padding:0;border:0;border-radius:50%;background:#000;opacity:.8;margin:10px auto 0}
+.brick-box{width:100%;max-width:540px;max-height:95vh;overflow-y:auto;padding:20px;border:1px solid #f0c0d7;border-radius:20px;background:#fff8fc;color:#63384e;text-align:center;box-shadow:0 15px 60px #0005}
+.brick-box h2{margin-top:0}
+#brickCanvas{display:block;width:100%;height:auto;max-height:65vh;object-fit:contain;background:#100b12;border:1px solid #e9a3c5;border-radius:10px;touch-action:none}
+#brickStatus{min-height:24px;color:#9d5277;font-size:13px}
+@media(max-width:480px){.container{padding:25px}h1{font-size:22px}.pong-box{padding:12px}.ttt-box{padding:18px}.brick-box{padding:14px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
-
 <body>
 <main class="container">
 <div class="top">quick question.html</div>
@@ -192,11 +193,9 @@ button:focus-visible{outline:2px solid #d77ca7;outline-offset:3px}
 </section>
 
 <div class="progress" id="progress">a very normal website</div>
-
 <button id="pongDot" hidden aria-label="Secret Pong game" title="?" onclick="openPong()"></button>
 </main>
 
-<!-- SECRET PONG -->
 <div id="pongOverlay" hidden>
 <div class="pong-box">
 <h2>pong.exe</h2>
@@ -206,14 +205,10 @@ button:focus-visible{outline:2px solid #d77ca7;outline-offset:3px}
 <div id="pongStatus">first to 5 wins. good luck.</div>
 <div class="pong-controls"><button class="primary" onclick="startPong()">play / restart</button><button onclick="closePong()">close game</button></div>
 <p>use W/S or ↑/↓ to move. on mobile, drag your paddle.</p>
-
-<!-- SECOND SECRET DOT -->
-<button id="tttDot" aria-label="Secret Tic-Tac-Toe" title="?"
-onclick="openTTT()" style="display:block;width:7px;height:7px;min-width:0;padding:0;border:0;border-radius:50%;background:#000;opacity:.8;margin:10px auto 0"></button>
+<button id="tttDot" aria-label="Secret Tic-Tac-Toe" title="?" onclick="openTTT()" style="display:block;width:7px;height:7px;min-width:0;padding:0;border:0;border-radius:50%;background:#000;opacity:.8;margin:10px auto 0"></button>
 </div>
 </div>
 
-<!-- SECRET TIC-TAC-TOE -->
 <div id="tttOverlay" hidden>
 <div class="ttt-box">
 <h2>tic-tac-toe.exe</h2>
@@ -224,6 +219,22 @@ onclick="openTTT()" style="display:block;width:7px;height:7px;min-width:0;paddin
 <button class="primary" onclick="restartTTT()">play again</button>
 <button onclick="closeTTT()">back to pong</button>
 </div>
+<button id="brickDot" aria-label="Secret Brick Breaker" title="?" onclick="openBrick()"></button>
+</div>
+</div>
+
+<div id="brickOverlay" hidden>
+<div class="brick-box">
+<h2>brick-breaker.exe</h2>
+<p>you found another one 💀</p>
+<p>Score: <strong id="brickScore">0</strong> &nbsp; Lives: <strong id="brickLives">3</strong></p>
+<canvas id="brickCanvas" width="480" height="600"></canvas>
+<p id="brickStatus" aria-live="polite">Break every brick. Good luck.</p>
+<div class="brick-controls">
+<button class="primary" onclick="startBrick()">play / restart</button>
+<button onclick="closeBrick()">back to Tic-Tac-Toe</button>
+</div>
+<p>Move with ← → or A/D. You can also drag the paddle.</p>
 </div>
 </div>
 
@@ -242,22 +253,18 @@ function next(id){
         submitAnswer(id==="yes"?"yeah, i'd like that":"no, sorry");
         document.getElementById("pongDot").hidden=false;
     }
-
     document.querySelectorAll("section").forEach(section=>section.hidden=true);
     const target=document.getElementById(id);
     if(target)target.hidden=false;
-
     const progress=document.getElementById("progress");
     if(id==="final")progress.textContent="you made it. good luck.";
     else if(id==="yes"||id==="no")progress.textContent="end of questionnaire";
     else progress.textContent="nothing weird going on here. probably.";
 }
 
-/* SECRET PONG GAME */
 const canvas=document.getElementById("pongCanvas");
 const ctx=canvas.getContext("2d");
 const W=canvas.width,H=canvas.height,paddleH=76,paddleW=9;
-
 let playerY=(H-paddleH)/2,botY=(H-paddleH)/2;
 let ballX=W/2,ballY=H/2,ballVX=4,ballVY=2;
 let playerScore=0,botScore=0,running=false,frame=null,lastTime=0;
@@ -308,46 +315,36 @@ function loop(time){
     if(!running)return;
     const dt=lastTime?Math.min((time-lastTime)/16.67,2):1;
     lastTime=time;
-
     if(keys.w||keys.arrowup)playerY-=5*dt;
     if(keys.s||keys.arrowdown)playerY+=5*dt;
     playerY=Math.max(0,Math.min(H-paddleH,playerY));
-
     const target=ballVX>0?ballY:H/2;
     const difference=target-(botY+paddleH/2);
     if(Math.abs(difference)>5)botY+=Math.sign(difference)*Math.min(Math.abs(difference),3.4*dt);
     botY=Math.max(0,Math.min(H-paddleH,botY));
-
     ballX+=ballVX*dt;ballY+=ballVY*dt;
-
     if(ballY<=6||ballY>=H-6){
         ballVY*=-1;ballY=Math.max(6,Math.min(H-6,ballY));
     }
-
     if(ballVX<0&&ballX-6<=31&&ballX>=22&&ballY>=playerY&&ballY<=playerY+paddleH){
         ballVX=Math.abs(ballVX)*1.06;
         ballVY+=(ballY-(playerY+paddleH/2))/12;
         ballX=37;
     }
-
     const botX=W-22-paddleW;
     if(ballVX>0&&ballX+6>=botX&&ballX<=botX+paddleW&&ballY>=botY&&ballY<=botY+paddleH){
         ballVX=-Math.abs(ballVX)*1.04;
         ballVY+=(ballY-(botY+paddleH/2))/14;
         ballX=botX-6;
     }
-
     ballVX=Math.max(-9,Math.min(9,ballVX));
     ballVY=Math.max(-7,Math.min(7,ballVY));
-
     if(ballX<0){
         botScore++;document.getElementById("botScore").textContent=botScore;resetBall(1);
     }else if(ballX>W){
         playerScore++;document.getElementById("playerScore").textContent=playerScore;resetBall(-1);
     }
-
     draw();
-
     if(playerScore>=5||botScore>=5){
         running=false;frame=null;
         document.getElementById("pongStatus").textContent=
@@ -363,7 +360,8 @@ document.addEventListener("keydown",e=>{
         e.preventDefault();keys[key]=true;
     }
     if(key==="escape"){
-        if(!document.getElementById("tttOverlay").hidden)closeTTT();
+        if(!document.getElementById("brickOverlay").hidden)closeBrick();
+        else if(!document.getElementById("tttOverlay").hidden)closeTTT();
         else if(!document.getElementById("pongOverlay").hidden)closePong();
     }
 });
@@ -382,10 +380,8 @@ canvas.addEventListener("pointerdown",e=>{
 canvas.addEventListener("pointermove",e=>{
     if(e.buttons||e.pointerType==="touch")movePaddle(e);
 });
-
 draw();
 
-/* SECRET TIC-TAC-TOE */
 let tttBoard=Array(9).fill("");
 let tttOver=false;
 let tttBusy=false;
@@ -413,53 +409,40 @@ function getWinner(board){
         [0,3,6],[1,4,7],[2,5,8],
         [0,4,8],[2,4,6]
     ];
-
     for(const [a,b,c] of lines){
         if(board[a]&&board[a]===board[b]&&board[a]===board[c]){
             return board[a];
         }
     }
-
     return board.every(Boolean)?"draw":null;
 }
 
-/* Minimax AI: the bot plays optimally */
 function minimax(board,isBot,depth=0){
     const result=getWinner(board);
-
     if(result==="O")return 10-depth;
     if(result==="X")return depth-10;
     if(result==="draw")return 0;
-
     let best=isBot?-Infinity:Infinity;
-
     for(let i=0;i<9;i++){
         if(board[i])continue;
-
         board[i]=isBot?"O":"X";
         const score=minimax(board,!isBot,depth+1);
         board[i]="";
-
         best=isBot?Math.max(best,score):Math.min(best,score);
     }
-
     return best;
 }
 
 function renderTTT(){
     const board=document.getElementById("tttBoard");
     board.replaceChildren();
-
     tttBoard.forEach((value,index)=>{
         const cell=document.createElement("button");
-
         cell.textContent=value==="X"?"❌":value==="O"?"⭕":"";
         cell.setAttribute("aria-label",value||`Empty square ${index+1}`);
         cell.disabled=!!value||tttOver||tttBusy;
-
         cell.style.background=value?"#ffe5f1":"#fff";
         cell.onclick=()=>playTTT(index);
-
         board.appendChild(cell);
     });
 }
@@ -467,40 +450,30 @@ function renderTTT(){
 function finishTTT(){
     const result=getWinner(tttBoard);
     if(!result)return false;
-
     tttOver=true;
-
     document.getElementById("tttStatus").textContent=
         result==="X"?"YOU WON?! THAT SHOULD BE IMPOSSIBLE 😭":
         result==="O"?"BOT WINS 💀 run that back.":
         "DRAW. neither of you can win.";
-
     renderTTT();
     return true;
 }
 
 function playTTT(index){
     if(tttOver||tttBusy||tttBoard[index])return;
-
     tttBoard[index]="X";
-
     if(finishTTT())return;
-
     tttBusy=true;
     renderTTT();
     document.getElementById("tttStatus").textContent="bot is thinking...";
-
     setTimeout(()=>{
         let bestScore=-Infinity;
         let bestMoves=[];
-
         for(let i=0;i<9;i++){
             if(tttBoard[i])continue;
-
             tttBoard[i]="O";
             const score=minimax(tttBoard,false);
             tttBoard[i]="";
-
             if(score>bestScore){
                 bestScore=score;
                 bestMoves=[i];
@@ -508,20 +481,219 @@ function playTTT(index){
                 bestMoves.push(i);
             }
         }
-
         if(bestMoves.length){
             const move=bestMoves[Math.floor(Math.random()*bestMoves.length)];
             tttBoard[move]="O";
         }
-
         tttBusy=false;
-
         if(!finishTTT()){
             document.getElementById("tttStatus").textContent="your turn.";
             renderTTT();
         }
     },250);
 }
+
+const brickCanvas=document.getElementById("brickCanvas");
+const brickCtx=brickCanvas.getContext("2d");
+const BW=brickCanvas.width,BH=brickCanvas.height;
+const BRICK_COLS=8,BRICK_ROWS=6,BRICK_GAP=5,BRICK_LEFT=14,BRICK_TOP=65;
+const BRICK_W=(BW-BRICK_LEFT*2-BRICK_GAP*(BRICK_COLS-1))/BRICK_COLS;
+const BRICK_H=18;
+let brickPaddle={x:BW/2-48,y:BH-45,w:96,h:10};
+let brickBall={x:BW/2,y:BH-65,r:7,vx:3,vy:-4};
+let brickBlocks=[],brickScore=0,brickLives=3;
+let brickRunning=false,brickFrame=null,brickLastTime=0;
+const brickKeys={};
+
+function makeBricks(){
+    brickBlocks=[];
+    const colors=["#f2b5d1","#e99fc3","#cba5ff","#e9a3c5","#d77ca7","#f5c8e0"];
+    for(let row=0;row<BRICK_ROWS;row++){
+        for(let col=0;col<BRICK_COLS;col++){
+            brickBlocks.push({
+                x:BRICK_LEFT+col*(BRICK_W+BRICK_GAP),
+                y:BRICK_TOP+row*(BRICK_H+BRICK_GAP),
+                w:BRICK_W,h:BRICK_H,alive:true,color:colors[row]
+            });
+        }
+    }
+}
+
+function resetBrickBall(){
+    brickBall.x=BW/2;
+    brickBall.y=BH-65;
+    brickBall.vx=(Math.random()<.5?-1:1)*3;
+    brickBall.vy=-4;
+    brickPaddle.x=(BW-brickPaddle.w)/2;
+}
+
+function drawBricks(){
+    brickCtx.fillStyle="#100b12";
+    brickCtx.fillRect(0,0,BW,BH);
+    for(const b of brickBlocks){
+        if(!b.alive)continue;
+        brickCtx.fillStyle=b.color;
+        brickCtx.fillRect(b.x,b.y,b.w,b.h);
+        brickCtx.strokeStyle="#fff4f9";
+        brickCtx.strokeRect(b.x,b.y,b.w,b.h);
+    }
+    brickCtx.fillStyle="#f2b5d1";
+    brickCtx.fillRect(brickPaddle.x,brickPaddle.y,brickPaddle.w,brickPaddle.h);
+    brickCtx.fillStyle="#fff";
+    brickCtx.beginPath();
+    brickCtx.arc(brickBall.x,brickBall.y,brickBall.r,0,Math.PI*2);
+    brickCtx.fill();
+}
+
+function updateBrickUI(){
+    document.getElementById("brickScore").textContent=brickScore;
+    document.getElementById("brickLives").textContent=brickLives;
+}
+
+function startBrick(){
+    if(brickFrame!==null)cancelAnimationFrame(brickFrame);
+    brickScore=0;
+    brickLives=3;
+    brickRunning=true;
+    brickLastTime=0;
+    makeBricks();
+    resetBrickBall();
+    updateBrickUI();
+    document.getElementById("brickStatus").textContent="Break every brick. Good luck.";
+    drawBricks();
+    brickFrame=requestAnimationFrame(brickLoop);
+}
+
+function openBrick(){
+    document.getElementById("brickOverlay").hidden=false;
+    startBrick();
+}
+
+function closeBrick(){
+    brickRunning=false;
+    if(brickFrame!==null)cancelAnimationFrame(brickFrame);
+    brickFrame=null;
+    document.getElementById("brickOverlay").hidden=true;
+    for(const key in brickKeys)delete brickKeys[key];
+}
+
+function endBrick(message){
+    brickRunning=false;
+    brickFrame=null;
+    document.getElementById("brickStatus").textContent=message;
+    drawBricks();
+}
+
+function moveBrickPaddle(clientX){
+    const rect=brickCanvas.getBoundingClientRect();
+    const x=(clientX-rect.left)*BW/rect.width;
+    brickPaddle.x=Math.max(0,Math.min(BW-brickPaddle.w,x-brickPaddle.w/2));
+}
+
+brickCanvas.addEventListener("pointerdown",e=>{
+    brickCanvas.setPointerCapture(e.pointerId);
+    moveBrickPaddle(e.clientX);
+});
+
+brickCanvas.addEventListener("pointermove",e=>{
+    if(e.buttons||e.pointerType==="touch")moveBrickPaddle(e.clientX);
+});
+
+document.addEventListener("keydown",e=>{
+    const key=e.key.toLowerCase();
+    if(!document.getElementById("brickOverlay").hidden&&
+       ["arrowleft","arrowright","a","d"].includes(key)){
+        e.preventDefault();
+        brickKeys[key]=true;
+    }
+});
+
+document.addEventListener("keyup",e=>{
+    delete brickKeys[e.key.toLowerCase()];
+});
+
+function brickLoop(time){
+    if(!brickRunning)return;
+    const dt=brickLastTime?Math.min((time-brickLastTime)/16.67,2):1;
+    brickLastTime=time;
+
+    if(brickKeys.arrowleft||brickKeys.a)brickPaddle.x-=7*dt;
+    if(brickKeys.arrowright||brickKeys.d)brickPaddle.x+=7*dt;
+    brickPaddle.x=Math.max(0,Math.min(BW-brickPaddle.w,brickPaddle.x));
+
+    brickBall.x+=brickBall.vx*dt;
+    brickBall.y+=brickBall.vy*dt;
+
+    if(brickBall.x-brickBall.r<=0){
+        brickBall.x=brickBall.r;
+        brickBall.vx=Math.abs(brickBall.vx);
+    }
+    if(brickBall.x+brickBall.r>=BW){
+        brickBall.x=BW-brickBall.r;
+        brickBall.vx=-Math.abs(brickBall.vx);
+    }
+    if(brickBall.y-brickBall.r<=0){
+        brickBall.y=brickBall.r;
+        brickBall.vy=Math.abs(brickBall.vy);
+    }
+
+    if(brickBall.vy>0&&
+       brickBall.y+brickBall.r>=brickPaddle.y&&
+       brickBall.y-brickBall.r<=brickPaddle.y+brickPaddle.h&&
+       brickBall.x>=brickPaddle.x&&
+       brickBall.x<=brickPaddle.x+brickPaddle.w){
+        brickBall.y=brickPaddle.y-brickBall.r;
+        const hit=(brickBall.x-(brickPaddle.x+brickPaddle.w/2))/(brickPaddle.w/2);
+        brickBall.vx=hit*5;
+        brickBall.vy=-Math.max(3.5,Math.abs(brickBall.vy));
+    }
+
+    for(const b of brickBlocks){
+        if(!b.alive)continue;
+        if(brickBall.x+brickBall.r>b.x&&
+           brickBall.x-brickBall.r<b.x+b.w&&
+           brickBall.y+brickBall.r>b.y&&
+           brickBall.y-brickBall.r<b.y+b.h){
+            b.alive=false;
+            brickScore+=10;
+            updateBrickUI();
+
+            const overlapLeft=brickBall.x+brickBall.r-b.x;
+            const overlapRight=b.x+b.w-(brickBall.x-brickBall.r);
+            const overlapTop=brickBall.y+brickBall.r-b.y;
+            const overlapBottom=b.y+b.h-(brickBall.y-brickBall.r);
+            const minOverlap=Math.min(overlapLeft,overlapRight,overlapTop,overlapBottom);
+
+            if(minOverlap===overlapLeft||minOverlap===overlapRight)brickBall.vx*=-1;
+            else brickBall.vy*=-1;
+            break;
+        }
+    }
+
+    if(brickBlocks.every(b=>!b.alive)){
+        brickScore+=100;
+        updateBrickUI();
+        endBrick("YOU WON 😭 every brick destroyed!");
+        return;
+    }
+
+    if(brickBall.y-brickBall.r>BH){
+        brickLives--;
+        updateBrickUI();
+        if(brickLives<=0){
+            endBrick("GAME OVER 💀 press play again to retry.");
+            return;
+        }
+        resetBrickBall();
+        document.getElementById("brickStatus").textContent="Lost a life! Keep going.";
+    }
+
+    drawBricks();
+    brickFrame=requestAnimationFrame(brickLoop);
+}
+
+makeBricks();
+drawBricks();
 </script>
 </body>
 </html>
